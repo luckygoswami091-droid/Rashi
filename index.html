@@ -44,6 +44,24 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     border-radius: 20px;
     margin-top: 20px;
 }
+
+/* ✅ FIX: missing CSS */
+.gift-grid {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.gift-item {
+    width: 28%;
+    background: #c0392b;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -56,7 +74,7 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <h2>Open Your Surprise ✉️</h2>
 
 <div class="img-box">
-<img src="Photo1.jpeg">
+<img src="Photo1.jpeg" alt="">
 </div>
 
 <button class="main-btn" onclick="showPage('p_new')">OPEN SEAL</button>
@@ -68,7 +86,7 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <h2>✨ A Little Surprise ✨</h2>
 
 <div class="img-box">
-<img src="newPhoto.jpeg"> <!-- CHECK NAME HERE -->
+<img src="newPhoto.jpeg" alt="">
 </div>
 
 <button class="main-btn" onclick="showPage('p2')">Click here to Surprise 🎁</button>
@@ -80,14 +98,55 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <h2>Choose a Gift 🎁</h2>
 
 <div class="img-box">
-<img src="Photo2.jpeg">
+<img src="Photo2.jpeg" alt="">
 </div>
 
-<button class="main-btn" onclick="showPage('p1')">Back</button>
+<div class="gift-grid">
+<div class="gift-item" onclick="showPage('p_msg')">✉️<br>MESSAGE</div>
+<div class="gift-item" onclick="showPage('p_flw')">🌻<br>FLOWER</div>
+<div class="gift-item" onclick="showPage('p_cake')">🎂<br>CAKE</div>
+</div>
+
+<button class="main-btn" style="background:#f1c40f; color:black;" onclick="showPage('p_final')">Go to Final Surprise ✨</button>
+</div>
+
+
+<div id="p_msg" class="page">
+<h2>A Little Note...</h2>
+<div class="img-box"><img src="Photo3.jpeg"></div>
+<div class="img-box"><img src="Photo4.jpeg"></div>
+<button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+</div>
+
+<div id="p_flw" class="page">
+<h2>For Someone Beautiful 🌻</h2>
+<div class="img-box"><img src="Photo5.jpeg"></div>
+<button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+</div>
+
+<div id="p_cake" class="page">
+<h2>Happy Birthday Rashi! 🎂</h2>
+<div class="img-box"><img src="Photo6.jpeg"></div>
+<button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+</div>
+
+<div id="p_final" class="page">
+<h2>This Song reminds me of you🎵</h2>
+
+<div class="img-box">
+<img src="Photo7.jpeg">
+</div>
+
+<button class="main-btn" onclick="playMusic()">Tap to Play 🎵</button>
+
+<audio id="myAudio" preload="auto">
+<source src="song1.mp3" type="audio/mpeg">
+</audio>
+
+<button class="back-btn" onclick="showPage('p2')">Back to Menu</button>
 </div>
 
 </div>
-
 
 <script>
 function showPage(pageId) {
@@ -97,9 +156,22 @@ function showPage(pageId) {
     var target = document.getElementById(pageId);
     if (target) {
         target.classList.add('active');
-    } else {
-        alert("Page not found: " + pageId);
     }
+
+    var audio = document.getElementById("myAudio");
+    if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+}
+
+function playMusic() {
+    var audio = document.getElementById("myAudio");
+
+    audio.play().catch(error => {
+        alert("Music play nahi ho raha. Check song1.mp3 file!");
+        console.log(error);
+    });
 }
 </script>
 
