@@ -11,8 +11,20 @@
         .page { display: none; min-height: 90vh; flex-direction: column; justify-content: center; align-items: center; }
         .active { display: flex; }
 
-        .img-box { width: 90%; max-height: 400px; border: 2px solid #fff; border-radius: 15px; background: #331111; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; overflow: hidden; }
-        .img-box img { width: 100%; height: auto; }
+        /* ✅ FIXED HEIGHT (no image movement) */
+        .img-box {
+            width: 90%;
+            height: 300px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            background: #331111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
         .main-btn { width: 85%; padding: 15px; background: #e74c3c; color: white; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; }
         .back-btn { width: 70%; padding: 10px; background: #7f8c8d; color: white; border: none; border-radius: 20px; margin-top: 20px; cursor: pointer; }
@@ -35,7 +47,7 @@
 
     <div id="p2" class="page">
         <h2>Choose a Gift 🎁</h2>
-        <div class="img-box" style="height: 150px;">
+        <div class="img-box" style="height:150px;">
             <img src="Photo2.jpeg">
         </div>
         <div class="gift-grid">
@@ -43,7 +55,7 @@
             <div class="gift-item" onclick="showPage('p_flw')">🌻<br>FLOWER</div>
             <div class="gift-item" onclick="showPage('p_cake')">🎂<br>CAKE</div>
         </div>
-        <button class="main-btn" style="background:#f1c40f; color: black;" onclick="showPage('p_final')">Go to Final Surprise ✨</button>
+        <button class="main-btn" style="background:#f1c40f; color:black;" onclick="showPage('p_final')">Go to Final Surprise ✨</button>
     </div>
 
     <div id="p_msg" class="page">
@@ -75,9 +87,9 @@
 
         <button class="main-btn" onclick="playMusic()">Tap to Play 🎵</button>
 
-        <!-- Audio -->
-        <audio id="myAudio">
-            <source src="Song.mpeg" type="audio/mpeg">
+        <!-- ✅ AUDIO -->
+        <audio id="myAudio" preload="auto">
+            <source src="song.mp3" type="audio/mpeg">
         </audio>
 
         <button class="back-btn" onclick="showPage('p2')">Back to Menu</button>
@@ -92,14 +104,21 @@
         
         document.getElementById(pageId).classList.add('active');
 
-        // stop music when leaving page
+        // stop music when leaving
         var audio = document.getElementById("myAudio");
         audio.pause();
         audio.currentTime = 0;
     }
 
     function playMusic() {
-        document.getElementById("myAudio").play();
+        var audio = document.getElementById("myAudio");
+
+        audio.play().then(() => {
+            console.log("Playing...");
+        }).catch(error => {
+            alert("Music play nahi ho raha. Check song.mp3 file!");
+            console.log(error);
+        });
     }
 </script>
 
