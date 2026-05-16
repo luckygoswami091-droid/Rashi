@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Rashi!</title>
+    <style>
+        /* Mobile settings */
+        body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; text-align: center; }
+        
+        /* Page Logic */
+        .page { display: none; min-height: 90vh; flex-direction: column; justify-content: center; align-items: center; }
+        .active { display: flex; }
+
+        /* Image Placeholder Boxes */
+        .img-box { width: 90%; max-height: 400px; border: 2px solid #fff; border-radius: 15px; background: #331111; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; font-weight: bold; overflow: hidden; }
+        .img-box img { width: 100%; height: auto; display: block; }
+
+        /* Buttons */
+        .main-btn { width: 85%; padding: 15px; background: #e74c3c; color: white; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+        .back-btn { width: 70%; padding: 10px; background: #7f8c8d; color: white; border: none; border-radius: 20px; margin-top: 20px; cursor: pointer; }
+        
+        /* Gift Selection Grid */
+        .gift-grid { display: flex; justify-content: space-around; width: 100%; margin: 20px 0; }
+        .gift-item { width: 28%; background: #c0392b; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer; }
+
+        /* Final Page Vinyl Style */
+        .vinyl { width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, #333 20%, #111 21%, #111 100%); border: 5px solid #fff; display: flex; justify-content: center; align-items: center; margin: 20px auto; cursor: pointer; animation: rotate 5s linear infinite paused; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .playing .vinyl { animation-play-state: running; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="p1" class="page active">
+        <h2>Open Your Surprise ✉️</h2>
+        <div class="img-box">
+            PHOTO 1 (Envelope)
+        </div>
+        <button class="main-btn" onclick="showPage('p2')">OPEN SEAL</button>
+    </div>
+
+    <div id="p2" class="page">
+        <h2>Choose a Gift 🎁</h2>
+        <div class="img-box" style="height: 150px;">
+            PHOTO 2 (Gifts Menu)
+        </div>
+        <div class="gift-grid">
+            <div class="gift-item" onclick="showPage('p_msg')">✉️<br>MESSAGE</div>
+            <div class="gift-item" onclick="showPage('p_flw')">🌻<br>FLOWER</div>
+            <div class="gift-item" onclick="showPage('p_cake')">🎂<br>CAKE</div>
+        </div>
+        <button class="main-btn" style="background:#f1c40f; color: black;" onclick="showPage('p_final')">Go to Final Surprise ✨</button>
+    </div>
+
+    <div id="p_msg" class="page">
+        <h2>A Little Note...</h2>
+        <div class="img-box">PHOTO 3 (Part 1)</div>
+        <div class="img-box">PHOTO 4 (Part 2)</div>
+        <button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+    </div>
+
+    <div id="p_flw" class="page">
+        <h2>For Someone Beautiful 🌻</h2>
+        <div class="img-box" style="background: #f1c40f; color: black;">PHOTO 5 (Sunflower)</div>
+        <button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+    </div>
+
+    <div id="p_cake" class="page">
+        <h2>Happy Birthday Rashi! 🎂</h2>
+        <div class="img-box">PHOTO 6 (Cake Collage)</div>
+        <button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
+    </div>
+
+    <div id="p_final" class="page">
+        <h2>This Song is For You 🎵</h2>
+        <div id="vinyl-container" onclick="playMusic()">
+            <div class="vinyl">
+                <span style="font-size: 10px; text-align: center;">PHOTO 7<br>TAP TO PLAY</span>
+            </div>
+        </div>
+        <p id="music-status">Tap the record to hear the music</p>
+        
+        <div id="music-player" style="display:none; margin-top: 15px;">
+            <iframe id="yt-link" width="100%" height="150" src="" frameborder="0" allow="autoplay"></iframe>
+        </div>
+        
+        <button class="back-btn" onclick="showPage('p2')">Back to Menu</button>
+    </div>
+
+</div>
+
+<script>
+    function showPage(pageId) {
+        // Sab pages hide karo
+        var pages = document.querySelectorAll('.page');
+        pages.forEach(p => p.classList.remove('active'));
+        
+        // Target page show karo
+        document.getElementById(pageId).classList.add('active');
+
+        // Agar music page se bahar jayein toh music band ho jaye
+        if (pageId !== 'p_final') {
+            document.getElementById('yt-link').src = "";
+            document.getElementById('music-player').style.display = "none";
+            document.getElementById('music-status').innerText = "Tap the record to hear the music";
+            document.getElementById('vinyl-container').classList.remove('playing');
+        }
+    }
+
+    function playMusic() {
+        // Ali Zafar Song Link
+        var player = document.getElementById('yt-link');
+        player.src = "https://www.youtube.com/embed/g6S-X-Y2kS4?autoplay=1";
+        document.getElementById('music-player').style.display = "block";
+        document.getElementById('music-status').innerText = "🎵 Now Playing: Voh Dekhnay Mein";
+        document.getElementById('vinyl-container').classList.add('playing');
+    }
+</script>
+
+</body>
+</html>
