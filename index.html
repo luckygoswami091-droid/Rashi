@@ -25,7 +25,7 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     height: auto;
 }
 
-/* 🔥 MAIN BUTTON */
+/* 🔥 BUTTONS */
 .main-btn {
     width: 85%;
     padding: 15px;
@@ -41,16 +41,9 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
 }
 
-.main-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 75, 43, 0.6);
-}
+.main-btn:hover { transform: scale(1.05); }
+.main-btn:active { transform: scale(0.95); }
 
-.main-btn:active {
-    transform: scale(0.95);
-}
-
-/* 🔥 BACK BUTTON */
 .back-btn {
     width: 70%;
     padding: 10px;
@@ -60,11 +53,6 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     border-radius: 20px;
     margin-top: 20px;
     cursor: pointer;
-    transition: 0.3s;
-}
-
-.back-btn:hover {
-    transform: scale(1.05);
 }
 
 /* gift grid */
@@ -85,25 +73,34 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     cursor: pointer;
 }
 
-/* 🎯 SLIDER */
+/* 🎯 SLIDER FIXED (NO CROP) */
 .slider {
     width: 90%;
+    height: 300px;
     overflow: hidden;
     border-radius: 15px;
     border: 2px solid #fff;
     margin-bottom: 15px;
+    background: linear-gradient(45deg, #000, #1a0505);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slides {
     display: flex;
     width: 200%;
+    height: 100%;
     animation: slide 6s infinite;
 }
 
 .slides img {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
+/* animation */
 @keyframes slide {
     0% { transform: translateX(0%); }
     45% { transform: translateX(0%); }
@@ -112,10 +109,8 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     100% { transform: translateX(0%); }
 }
 
-/* ✨ Glow Heading */
-h2 {
-    text-shadow: 0 0 10px #ff4d4d;
-}
+/* glow */
+h2 { text-shadow: 0 0 10px #ff4d4d; }
 </style>
 </head>
 
@@ -123,21 +118,18 @@ h2 {
 
 <div class="container">
 
-<!-- PAGE 1 -->
 <div id="p1" class="page active">
 <h2>Open Your Surprise ✉️</h2>
 <div class="img-box"><img src="Photo1.jpeg"></div>
 <button class="main-btn" onclick="showPage('p_new')">OPEN SEAL</button>
 </div>
 
-<!-- NEW PAGE -->
 <div id="p_new" class="page">
 <h2>✨ A Little Surprise ✨</h2>
 <div class="img-box"><img src="newPhoto.jpeg"></div>
 <button class="main-btn" onclick="showPage('p2')">Click here to Surprise 🎁</button>
 </div>
 
-<!-- PAGE 2 -->
 <div id="p2" class="page">
 <h2>Choose a Gift 🎁</h2>
 <div class="img-box"><img src="Photo2.jpeg"></div>
@@ -210,7 +202,7 @@ function showPage(pageId) {
 function playMusic() {
     var audio = document.getElementById("myAudio");
 
-    audio.play().catch(error => {
+    audio.play().catch(() => {
         alert("Music play nahi ho raha. Check song1.mp3 file!");
     });
 }
