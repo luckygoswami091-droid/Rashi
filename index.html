@@ -25,27 +25,49 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     height: auto;
 }
 
+/* 🔥 MAIN BUTTON */
 .main-btn {
     width: 85%;
     padding: 15px;
-    background: #e74c3c;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
     color: white;
     border: none;
     border-radius: 30px;
     font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
 }
 
+.main-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 75, 43, 0.6);
+}
+
+.main-btn:active {
+    transform: scale(0.95);
+}
+
+/* 🔥 BACK BUTTON */
 .back-btn {
     width: 70%;
     padding: 10px;
-    background: gray;
+    background: linear-gradient(45deg, #636e72, #2d3436);
+    color: white;
     border: none;
     border-radius: 20px;
     margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* ✅ FIX: missing CSS */
+.back-btn:hover {
+    transform: scale(1.05);
+}
+
+/* gift grid */
 .gift-grid {
     display: flex;
     justify-content: space-around;
@@ -62,6 +84,38 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
     font-weight: bold;
     cursor: pointer;
 }
+
+/* 🎯 SLIDER */
+.slider {
+    width: 90%;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    margin-bottom: 15px;
+}
+
+.slides {
+    display: flex;
+    width: 200%;
+    animation: slide 6s infinite;
+}
+
+.slides img {
+    width: 100%;
+}
+
+@keyframes slide {
+    0% { transform: translateX(0%); }
+    45% { transform: translateX(0%); }
+    50% { transform: translateX(-100%); }
+    95% { transform: translateX(-100%); }
+    100% { transform: translateX(0%); }
+}
+
+/* ✨ Glow Heading */
+h2 {
+    text-shadow: 0 0 10px #ff4d4d;
+}
 </style>
 </head>
 
@@ -72,34 +126,21 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <!-- PAGE 1 -->
 <div id="p1" class="page active">
 <h2>Open Your Surprise ✉️</h2>
-
-<div class="img-box">
-<img src="Photo1.jpeg" alt="">
-</div>
-
+<div class="img-box"><img src="Photo1.jpeg"></div>
 <button class="main-btn" onclick="showPage('p_new')">OPEN SEAL</button>
 </div>
-
 
 <!-- NEW PAGE -->
 <div id="p_new" class="page">
 <h2>✨ A Little Surprise ✨</h2>
-
-<div class="img-box">
-<img src="newPhoto.jpeg" alt="">
-</div>
-
+<div class="img-box"><img src="newPhoto.jpeg"></div>
 <button class="main-btn" onclick="showPage('p2')">Click here to Surprise 🎁</button>
 </div>
-
 
 <!-- PAGE 2 -->
 <div id="p2" class="page">
 <h2>Choose a Gift 🎁</h2>
-
-<div class="img-box">
-<img src="Photo2.jpeg" alt="">
-</div>
+<div class="img-box"><img src="Photo2.jpeg"></div>
 
 <div class="gift-grid">
 <div class="gift-item" onclick="showPage('p_msg')">✉️<br>MESSAGE</div>
@@ -110,11 +151,17 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <button class="main-btn" style="background:#f1c40f; color:black;" onclick="showPage('p_final')">Go to Final Surprise ✨</button>
 </div>
 
-
+<!-- MESSAGE SLIDER -->
 <div id="p_msg" class="page">
-<h2>A Little Note...</h2>
-<div class="img-box"><img src="Photo4.jpeg"></div>
-<div class="img-box"><img src="Photo3.jpeg"></div>
+<h2>💌 A Special Message 💌</h2>
+
+<div class="slider">
+    <div class="slides">
+        <img src="Photo3.jpeg">
+        <img src="Photo4.jpeg">
+    </div>
+</div>
+
 <button class="back-btn" onclick="showPage('p2')">Back to Gifts</button>
 </div>
 
@@ -133,9 +180,7 @@ body { margin: 0; padding: 0; background-color: #1a0505; color: white; font-fami
 <div id="p_final" class="page">
 <h2>This Song reminds me of you🎵</h2>
 
-<div class="img-box">
-<img src="Photo7.jpeg">
-</div>
+<div class="img-box"><img src="Photo7.jpeg"></div>
 
 <button class="main-btn" onclick="playMusic()">Tap to Play 🎵</button>
 
@@ -153,10 +198,7 @@ function showPage(pageId) {
     var pages = document.querySelectorAll('.page');
     pages.forEach(p => p.classList.remove('active'));
 
-    var target = document.getElementById(pageId);
-    if (target) {
-        target.classList.add('active');
-    }
+    document.getElementById(pageId).classList.add('active');
 
     var audio = document.getElementById("myAudio");
     if (audio) {
@@ -170,7 +212,6 @@ function playMusic() {
 
     audio.play().catch(error => {
         alert("Music play nahi ho raha. Check song1.mp3 file!");
-        console.log(error);
     });
 }
 </script>
